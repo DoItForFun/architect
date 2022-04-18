@@ -16,14 +16,14 @@ import javax.annotation.Resource;
  * Created by IDEA
  * @date 2022-04-11 23:53
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = Application.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = Application.class)
 public class TransTest {
-    @Resource
-    private TestPropagationTransService testPropagationTransService;
-
-    @Test
-    public void test(){
-        testPropagationTransService.testPropagationTrans();
-    }
+//    @Resource
+//    private TestPropagationTransService testPropagationTransService;
+//
+//    @Test
+//    public void test(){
+//        testPropagationTransService.testPropagationTrans();
+//    }
 }
