@@ -1,6 +1,7 @@
 package com.study.service;
 
-import com.study.pojo.Stu;
+import com.study.pojo.BO.UserBO;
+import com.study.pojo.User;
 
 /**
  * The interface Stu service.
@@ -18,4 +19,13 @@ public interface UserService {
      * @return the boolean
      */
     boolean queryUsernameIsExists(String name);
+
+    /**
+     * Create user.
+     *
+     * @param userBO the user bo
+     * @return the user
+     * @throws Exception the exception
+     */
+    User createUser(UserBO userBO) throws Exception;
 }

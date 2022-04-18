@@ -1,11 +1,14 @@
 package com.study.pojo;
 
+import lombok.Data;
+
 import javax.persistence.Column;
 import java.util.Date;
 
 /**
  * @author lizhe
  */
+@Data
 public class User {
     /**
      * 主键id 用户id

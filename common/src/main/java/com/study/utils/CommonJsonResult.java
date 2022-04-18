@@ -2,6 +2,7 @@ package com.study.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 
 /**
  * @author lizhe
@@ -61,10 +62,10 @@ public class CommonJsonResult {
     }
 
     public static CommonJsonResult ok(){
-        return new CommonJsonResult(200, "success", null);
+        return new CommonJsonResult(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), null);
     }
 
     public static CommonJsonResult errorMsg(String message){
-        return new CommonJsonResult(500, message, null);
+        return new CommonJsonResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }
 }
