@@ -2,6 +2,7 @@ package com.study.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author lizhe
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date 2022-04-10 17:52
  */
 @RestController
+@ApiIgnore
 public class HelloController {
     @RequestMapping("/hello")
     public String hello(){

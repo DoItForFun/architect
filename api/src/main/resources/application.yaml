@@ -20,6 +20,9 @@ spring:
       pool-name: DataSourceHikariCP # 连接池名称
       max-lifetime: 1800000 # 连接生命时长
       connection-test-query: select 1
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
 mybatis:
   type-aliases-package: com.study.pojo
   mapper-locations: classpath:mapper/*.xml
@@ -27,4 +30,3 @@ mapper:
   mappers: com.study.my.mapper.MyMapper
   not-empty: false
   identity: MYSQL
-

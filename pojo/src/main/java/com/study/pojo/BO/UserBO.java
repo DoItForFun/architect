@@ -1,5 +1,7 @@
 package com.study.pojo.BO;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -8,9 +10,13 @@ import lombok.Data;
  * Created by IDEA
  * @date 2022-04-18 23:46
  */
+@ApiModel(value = "Json", description = "用户参数接收容器")
 @Data
 public class UserBO {
+    @ApiModelProperty(value = "用户名称", name = "username")
     private String username;
+    @ApiModelProperty(value = "密码", name = "password")
     private String password;
+    @ApiModelProperty(value = "确认密码", name = "confirmPassword")
     private String confirmPassword;
 }

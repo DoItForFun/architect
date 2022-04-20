@@ -6,6 +6,8 @@ import com.study.pojo.User;
 import com.study.service.UserService;
 import com.study.service.impl.StuServiceImpl;
 import com.study.utils.CommonJsonResult;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +21,14 @@ import java.util.Objects;
  * Created by IDEA
  * @date 2022-04-11 23:26
  */
+@Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("/passport")
 public class PassportController {
     @Resource
     UserService userService;
 
+    @ApiOperation(value = "判断用户名是否存在", notes = "用户名是否存在", httpMethod = "POST")
     @RequestMapping("/isExists")
     public CommonJsonResult usernameIsExists(@RequestParam String username) {
         // 判断入参
@@ -39,6 +43,8 @@ public class PassportController {
         return CommonJsonResult.ok();
     }
 
+
+    @ApiOperation(value = "用户注册", notes = "用户注册", httpMethod = "POST")
     @RequestMapping("/register")
     public CommonJsonResult createUser(@RequestBody UserBO userBO) throws Exception {
         String username = userBO.getUsername();
