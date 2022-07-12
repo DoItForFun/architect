@@ -6,6 +6,7 @@ import com.study.pojo.User;
 import com.study.service.UserService;
 import com.study.service.impl.StuServiceImpl;
 import com.study.utils.CommonJsonResult;
+import com.study.utils.Md5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,21 @@ public class PassportController {
             return CommonJsonResult.errorMsg("俩次密码不一致");
         }
         User user = userService.createUser(userBO);
+        return CommonJsonResult.build(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), user);
+    }
+
+    @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
+    @RequestMapping("/login")
+    public CommonJsonResult login(@RequestBody UserBO userBO) throws Exception {
+        String username = userBO.getUsername();
+        String password = userBO.getPassword();
+        if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
+            return CommonJsonResult.errorMsg("用户名和密码不能为空");
+        }
+        User user = userService.queryUserForLogin(username, Md5Utils.getMD5Str(password));
+        if(user == null){
+            return CommonJsonResult.errorMsg("用户名或密码不正确");
+        }
         return CommonJsonResult.build(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), user);
     }
 }

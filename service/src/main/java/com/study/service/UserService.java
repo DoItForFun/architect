@@ -28,4 +28,14 @@ public interface UserService {
      * @throws Exception the exception
      */
     User createUser(UserBO userBO) throws Exception;
+
+
+    /**
+     * Query user for login user.
+     * 登录
+     * @param username the username
+     * @param password the password
+     * @return the user
+     */
+    User  queryUserForLogin(String username, String password);
 }
