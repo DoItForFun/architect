@@ -26,6 +26,8 @@ spring:
 mybatis:
   type-aliases-package: com.study.pojo
   mapper-locations: classpath:mapper/*.xml
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 mapper:
   mappers: com.study.my.mapper.MyMapper
   not-empty: false

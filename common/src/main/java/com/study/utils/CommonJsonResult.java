@@ -65,6 +65,10 @@ public class CommonJsonResult {
         return new CommonJsonResult(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), null);
     }
 
+    public static CommonJsonResult ok(Object data){
+        return new CommonJsonResult(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), data);
+    }
+
     public static CommonJsonResult errorMsg(String message){
         return new CommonJsonResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), message, null);
     }

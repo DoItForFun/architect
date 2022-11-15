@@ -2,6 +2,7 @@
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/Carousel.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/Items.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/User.java
+/Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/vo/CategoryVO.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/OrderStatus.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/Category.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/Stu.java
@@ -9,5 +10,7 @@
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/Orders.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/OrderItems.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/ItemsParam.java
+/Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/BO/UserBO.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/UserAddress.java
+/Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/vo/SubCategoryVO.java
 /Users/lizhe/docker/study/architect/pojo/src/main/java/com/study/pojo/ItemsImg.java

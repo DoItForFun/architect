@@ -1,1 +1,8 @@
+com/study/config/CorsConfig.class
+com/study/config/Swagger2.class
+com/study/Application.class
 com/study/controller/PassportController.class
+com/study/controller/HelloController.class
+com/study/controller/StuFooController.class
+com/study/controller/IndexController.class
+com/study/aspect/ServiceLogAspect.class

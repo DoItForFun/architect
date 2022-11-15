@@ -1,0 +1,15 @@
+com/study/my/mapper/MyMapper.class
+com/study/mapper/ItemsMapper.class
+com/study/mapper/CategoryMapper.class
+com/study/mapper/UsersMapper.class
+com/study/mapper/ItemsParamMapper.class
+com/study/mapper/UserAddressMapper.class
+com/study/mapper/ItemsImgMapper.class
+com/study/mapper/StuMapper.class
+com/study/mapper/CarouselMapper.class
+com/study/mapper/OrdersMapper.class
+com/study/mapper/OrderStatusMapper.class
+com/study/mapper/CategoryCustomMapper.class
+com/study/mapper/ItemsCommentsMapper.class
+com/study/mapper/OrderItemsMapper.class
+com/study/mapper/ItemsSpecMapper.class

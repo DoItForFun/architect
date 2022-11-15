@@ -6,6 +6,8 @@ import com.study.pojo.User;
 import com.study.service.UserService;
 import com.study.service.impl.StuServiceImpl;
 import com.study.utils.CommonJsonResult;
+import com.study.utils.CookieUtils;
+import com.study.utils.JsonUtils;
 import com.study.utils.Md5Utils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 /**
@@ -71,7 +75,8 @@ public class PassportController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @RequestMapping("/login")
-    public CommonJsonResult login(@RequestBody UserBO userBO) throws Exception {
+    public CommonJsonResult login(@RequestBody UserBO userBO, HttpServletRequest request,
+                                   HttpServletResponse response) throws Exception {
         String username = userBO.getUsername();
         String password = userBO.getPassword();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
@@ -81,6 +86,26 @@ public class PassportController {
         if(user == null){
             return CommonJsonResult.errorMsg("用户名或密码不正确");
         }
+        CookieUtils.setCookie(request, response,"user", JsonUtils.objectToJson(user), true);
+        setNullProperty(user);
         return CommonJsonResult.build(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), user);
+    }
+
+    private void setNullProperty(User user){
+        user.setPassword(null);
+        user.setMobile(null);
+        user.setEmail(null);
+        user.setCreatedTime(null);
+        user.setUpdatedTime(null);
+        user.setBirthday(null);
+    }
+
+    @ApiOperation(value = "用户退出登录", notes = "用户退出登录", httpMethod = "POST")
+    @RequestMapping("/logout")
+    public CommonJsonResult logout(@RequestParam String userId,
+                                   HttpServletRequest request,
+                                   HttpServletResponse response){
+        CookieUtils.deleteCookie(request, response, "user");
+        return CommonJsonResult.ok();
     }
 }
