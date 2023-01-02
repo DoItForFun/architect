@@ -2,9 +2,11 @@ com/study/service/CarouselService.class
 com/study/service/UserService.class
 com/study/service/impl/TestPropagationTransServiceImpl.class
 com/study/service/impl/StuServiceImpl.class
+com/study/service/ItemService.class
 com/study/service/impl/CategoryServiceImpl.class
 com/study/service/CategoryService.class
 com/study/service/TestPropagationTransService.class
 com/study/service/impl/UserServiceImpl.class
 com/study/service/impl/CarouselServiceImpl.class
+com/study/service/impl/ItemServiceImpl.class
 com/study/service/StuService.class

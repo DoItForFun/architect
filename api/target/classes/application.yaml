@@ -32,3 +32,6 @@ mapper:
   mappers: com.study.my.mapper.MyMapper
   not-empty: false
   identity: MYSQL
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true

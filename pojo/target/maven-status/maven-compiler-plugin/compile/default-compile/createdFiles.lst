@@ -14,3 +14,4 @@ com/study/pojo/ItemsSpec.class
 com/study/pojo/Orders.class
 com/study/pojo/OrderStatus.class
 com/study/pojo/ItemsComments.class
+com/study/pojo/vo/ItemInfoVO.class
