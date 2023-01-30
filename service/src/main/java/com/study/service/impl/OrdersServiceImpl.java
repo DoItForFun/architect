@@ -3,14 +3,14 @@ package com.study.service.impl;
 import com.study.mapper.OrderItemsMapper;
 import com.study.mapper.OrderStatusMapper;
 import com.study.mapper.OrdersMapper;
-import com.study.pojo.*;
 import com.study.pojo.BO.SubmitOrderBO;
+import com.study.pojo.*;
 import com.study.service.ItemService;
 import com.study.service.OrdersService;
 import com.study.service.UserAddressService;
+import com.study.utils.DateUtil;
 import com.study.utils.enums.OrderStatusEnum;
 import com.study.utils.enums.YesOrNo;
-import org.aspectj.weaver.ast.Or;
 import org.n3r.idworker.Sid;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lizhe
@@ -118,5 +119,39 @@ public class OrdersServiceImpl implements OrdersService {
         waitPayOrderStatus.setCreatedTime(new Date());
         orderStatusMapper.insert(waitPayOrderStatus);
         return orderId;
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Override
+    public void updateOrderStatus(String orderId, Integer orderStatus) {
+        OrderStatus paidStatus = new OrderStatus();
+        paidStatus.setOrderId(orderId);
+        paidStatus.setOrderStatus(orderStatus);
+        paidStatus.setPayTime(new Date());
+        orderStatusMapper.updateByPrimaryKeySelective(paidStatus);
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Override
+    public void closeOrder() {
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setOrderStatus(OrderStatusEnum.WAIT_PAY.getType());
+        List<OrderStatus> select = orderStatusMapper.select(orderStatus);
+        for (OrderStatus status : select) {
+            Date createdTime = status.getCreatedTime();
+            int days = DateUtil.daysBetween(createdTime, new Date());
+            if (days > 1) {
+                doClose(status.getOrderId());
+            }
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void doClose(String orderId){
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setOrderId(orderId);
+        orderStatus.setOrderStatus(OrderStatusEnum.CLOSE.getType());
+        orderStatus.setCloseTime(new Date());
+        orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
     }
 }

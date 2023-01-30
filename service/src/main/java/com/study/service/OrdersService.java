@@ -24,4 +24,17 @@ public interface OrdersService {
      */
     String createOrder(SubmitOrderBO submitOrderBO);
 
+    /**
+     * Update order status.
+     *
+     * @param orderId     the order id
+     * @param orderStatus the order status
+     */
+    void updateOrderStatus(String orderId, Integer orderStatus);
+
+    /**
+     * Close order.
+     */
+    void closeOrder();
+
 }

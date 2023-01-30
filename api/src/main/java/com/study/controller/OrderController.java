@@ -4,11 +4,14 @@ import com.study.pojo.BO.SubmitOrderBO;
 import com.study.service.OrdersService;
 import com.study.utils.CommonJsonResult;
 import com.study.utils.CookieUtils;
+import com.study.utils.enums.OrderStatusEnum;
 import com.study.utils.enums.PayMethod;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,5 +47,11 @@ public class OrderController extends BaseController{
         // 向支付中心发送当前订单，用于保存支付中心的订单数据
 
         return CommonJsonResult.ok(orderId);
+    }
+
+    @PostMapping("notifyMerchantOrderPaid")
+    public Integer notifyMerchantOrderPaid(String merchantOrderId){
+        ordersService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_DELIVER.getType());
+        return HttpStatus.OK.value();
     }
 }
