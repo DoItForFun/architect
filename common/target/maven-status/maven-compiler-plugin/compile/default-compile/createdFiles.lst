@@ -6,7 +6,9 @@ com/study/utils/JsonUtils.class
 com/study/utils/CookieUtils.class
 org/n3r/idworker/utils/Ip.class
 org/n3r/idworker/RandomCodeStrategy.class
+com/study/utils/enums/CommentLevel.class
 org/n3r/idworker/utils/Serializes.class
+com/study/utils/enums/PayMethod.class
 com/study/utils/DateUtil.class
 org/n3r/idworker/WorkerIdStrategy.class
 org/n3r/idworker/InvalidSystemClock.class
@@ -22,6 +24,7 @@ com/study/utils/enums/SexEnum.class
 org/n3r/idworker/utils/Utils.class
 org/n3r/idworker/utils/Props$Silent.class
 org/n3r/idworker/strategy/FileLock.class
+com/study/utils/PageGridResult.class
 org/n3r/idworker/strategy/DayPrefixRandomCodeStrategy.class
 com/study/utils/enums/YesOrNo.class
 org/n3r/idworker/Id.class
@@ -29,3 +32,4 @@ org/n3r/idworker/Sid.class
 org/n3r/idworker/Sid$1.class
 org/n3r/idworker/strategy/DefaultWorkerIdStrategy$1.class
 org/n3r/idworker/strategy/DefaultWorkerIdStrategy.class
+com/study/utils/enums/OrderStatusEnum.class

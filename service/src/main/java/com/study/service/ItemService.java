@@ -1,10 +1,12 @@
 package com.study.service;
 
+import com.study.pojo.BO.ShopCartBO;
 import com.study.pojo.Items;
 import com.study.pojo.ItemsImg;
 import com.study.pojo.ItemsParam;
 import com.study.pojo.ItemsSpec;
 import com.study.pojo.vo.CommentLevelCountsVO;
+import com.study.pojo.vo.ShopCartVO;
 import com.study.utils.PageGridResult;
 
 import java.util.List;
@@ -85,4 +87,47 @@ public interface ItemService {
      * @return the page grid result
      */
     PageGridResult searchItems(String keywords, String sort, Integer page, Integer pageSize);
+
+    /**
+     * Search items page grid result.
+     *
+     * @param catId    the catId
+     * @param sort     the sort
+     * @param page     the page
+     * @param pageSize the page size
+     * @return the page grid result
+     */
+    PageGridResult searchItemsByThirdCat(Integer catId, String sort, Integer page, Integer pageSize);
+
+    /**
+     * Query items by spec ids page grid result.
+     *
+     * @param specIds    the specIds
+     * @return the page grid result
+     */
+    List<ShopCartVO> queryItemsBySpecIds(String specIds);
+
+    /**
+     * Query item spec by id items spec.
+     *
+     * @param specId the spec id
+     * @return the items spec
+     */
+    ItemsSpec queryItemSpecById(String specId);
+
+    /**
+     * Query item main img by id string.
+     *
+     * @param itemId the item id
+     * @return the string
+     */
+    String queryItemMainImgById(String itemId);
+
+    /**
+     * Decrease item spec stock.
+     *
+     * @param specId   the spec id
+     * @param buyCount the buy count
+     */
+    void decreaseItemSpecStock(String specId, int buyCount);
 }

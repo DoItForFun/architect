@@ -7,18 +7,18 @@ import com.study.pojo.*;
 import com.study.pojo.vo.CommentLevelCountsVO;
 import com.study.pojo.vo.ItemCommentsVO;
 import com.study.pojo.vo.SearchItemsVO;
+import com.study.pojo.vo.ShopCartVO;
 import com.study.service.ItemService;
 import com.study.utils.PageGridResult;
 import com.study.utils.enums.CommentLevel;
+import com.study.utils.enums.YesOrNo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * The type Item service.
@@ -148,6 +148,56 @@ public class ItemServiceImpl implements ItemService {
         PageHelper.startPage(page, pageSize);
         List<SearchItemsVO> searchItems = itemsCustomMapper.searchItems(map);
         return setterPageGrid(page, searchItems);
+    }
+
+    @Override
+    public PageGridResult searchItemsByThirdCat(Integer catId, String sort, Integer page, Integer pageSize) {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("catId", catId);
+        map.put("sort", sort);
+        PageHelper.startPage(page, pageSize);
+        List<SearchItemsVO> searchItems = itemsCustomMapper.searchItemsByThirdCat(map);
+        return setterPageGrid(page, searchItems);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+    public List<ShopCartVO> queryItemsBySpecIds(String specIds) {
+        String[] ids = specIds.split(",");
+        List<String> specIdsList = new ArrayList<>();
+        Collections.addAll(specIdsList, ids);
+        return itemsCustomMapper.queryItemsBySpecIds(specIdsList);
+    }
+
+    @Override
+    public ItemsSpec queryItemSpecById(String specId) {
+        return itemsSpecMapper.selectByPrimaryKey(specId);
+    }
+
+    @Override
+    public String queryItemMainImgById(String itemId) {
+        ItemsImg itemsImg = new ItemsImg();
+        itemsImg.setItemId(itemId);
+        itemsImg.setIsMain(YesOrNo.YES.getType());
+        ItemsImg result = itemsImgMapper.selectOne(itemsImg);
+        return result != null && result.getUrl() != null ? result.getUrl() : "";
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    @Override
+    public void decreaseItemSpecStock(String specId, int buyCount) {
+//        // 加锁
+//        // 查询库存
+//        int stock = 2;
+//        // 判断库存
+//        if(stock - buyCount < 0){
+//            // 提示库存不足
+//        }
+//        // 解锁
+        int result = itemsCustomMapper.decreaseItemSpecStock(specId, buyCount);
+        if(result != 1){
+            throw new RuntimeException("订单创建失败，原因：库存不足");
+        }
     }
 
     private PageGridResult setterPageGrid(int page, List<?> list) {

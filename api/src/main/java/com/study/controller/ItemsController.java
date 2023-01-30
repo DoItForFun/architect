@@ -6,6 +6,7 @@ import com.study.pojo.ItemsParam;
 import com.study.pojo.ItemsSpec;
 import com.study.pojo.vo.CommentLevelCountsVO;
 import com.study.pojo.vo.ItemInfoVO;
+import com.study.pojo.vo.ShopCartVO;
 import com.study.service.ItemService;
 import com.study.utils.CommonJsonResult;
 import com.study.utils.PageGridResult;
@@ -98,7 +99,7 @@ public class ItemsController extends BaseController{
     @GetMapping("/search")
     @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     @ApiOperation(value = "搜索商品列表", notes = "搜索商品列表", httpMethod = "GET")
-    public CommonJsonResult searchItms(
+    public CommonJsonResult searchItems(
             @ApiParam(name = "keywords", value = "关键字", required = true)
             @RequestParam("keywords") String keywords,
             @ApiParam(name = "sort", value = "排序")
@@ -121,5 +122,45 @@ public class ItemsController extends BaseController{
         return CommonJsonResult.ok(pageGridResult);
     }
 
+
+    @GetMapping("/catItems")
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+    @ApiOperation(value = "搜索商品列表", notes = "搜索商品列表", httpMethod = "GET")
+    public CommonJsonResult catItems(
+            @ApiParam(name = "catId", value = "catId", required = true)
+            @RequestParam("catId") Integer catId,
+            @ApiParam(name = "sort", value = "排序")
+            @RequestParam("sort") String sort,
+            @ApiParam(name = "page", value = "页码")
+            @RequestParam("page") Integer page,
+            @ApiParam(name = "pageSize", value = "页面大小")
+            @RequestParam("pageSize") Integer pageSize
+    ) {
+        if (catId == null) {
+            return CommonJsonResult.errorMsg(null);
+        }
+        if(page == null){
+            page = START_PAGE;
+        }
+        if(pageSize == null){
+            pageSize = COMMENT_PAGE_SIZE;
+        }
+        PageGridResult pageGridResult = itemService.searchItemsByThirdCat(catId, sort, page, pageSize);
+        return CommonJsonResult.ok(pageGridResult);
+    }
+
+    @GetMapping("/refresh")
+    @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
+    @ApiOperation(value = "根据商品规格ids查找最新的商品数据", notes = "根据商品规格ids查找最新的商品数据", httpMethod = "GET")
+    public CommonJsonResult refresh(
+            @ApiParam(name = "itemSpecIds", value = "itemSpecIds", required = true, example = "1001,1002")
+            @RequestParam("itemSpecIds") String itemSpecId
+    ) {
+        if (StringUtils.isBlank(itemSpecId)) {
+            return CommonJsonResult.errorMsg(null);
+        }
+        List<ShopCartVO> shopCart = itemService.queryItemsBySpecIds(itemSpecId);
+        return CommonJsonResult.ok(shopCart);
+    }
 
 }
