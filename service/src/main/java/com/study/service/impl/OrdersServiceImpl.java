@@ -3,6 +3,7 @@ package com.study.service.impl;
 import com.study.mapper.OrderItemsMapper;
 import com.study.mapper.OrderStatusMapper;
 import com.study.mapper.OrdersMapper;
+import com.study.pojo.BO.ShopCartBO;
 import com.study.pojo.BO.SubmitOrderBO;
 import com.study.pojo.*;
 import com.study.service.ItemService;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

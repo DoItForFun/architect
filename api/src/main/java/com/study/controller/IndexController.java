@@ -7,10 +7,13 @@ import com.study.pojo.vo.NewItemsVO;
 import com.study.service.CarouselService;
 import com.study.service.CategoryService;
 import com.study.utils.CommonJsonResult;
+import com.study.utils.JsonUtils;
+import com.study.utils.RedisOperator;
 import com.study.utils.enums.YesOrNo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
@@ -41,14 +44,22 @@ public class IndexController {
     CarouselService carouselService;
     @Resource
     CategoryService categoryService;
+    @Resource
+    RedisOperator redisOperator;
 
 
     @RequestMapping("/carousel")
     @Transactional(propagation = Propagation.SUPPORTS, rollbackFor = Exception.class)
     @ApiOperation(value = "获取首页轮播图列表", notes = "获取首页轮播图列表", httpMethod = "GET")
     public CommonJsonResult setSession(HttpServletRequest request) {
-        List<Carousel> carousels = carouselService.queryAll(YesOrNo.YES.getType());
-        return CommonJsonResult.ok(carousels);
+        String key = "carousel";
+        String carouselStr = redisOperator.get(key);
+        if(StringUtils.isBlank(carouselStr)){
+            List<Carousel> carousels = carouselService.queryAll(YesOrNo.YES.getType());
+            carouselStr = JsonUtils.objectToJson(carousels);
+            redisOperator.set(key, carouselStr);
+        }
+        return CommonJsonResult.ok(JsonUtils.jsonToList(carouselStr,  Carousel.class));
     }
 
     @RequestMapping("/cats")
