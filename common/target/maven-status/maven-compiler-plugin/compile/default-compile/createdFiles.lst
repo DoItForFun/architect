@@ -8,9 +8,11 @@ org/n3r/idworker/utils/Ip.class
 org/n3r/idworker/RandomCodeStrategy.class
 com/study/utils/enums/CommentLevel.class
 org/n3r/idworker/utils/Serializes.class
+com/study/utils/RedisOperator$1.class
 com/study/utils/enums/PayMethod.class
 com/study/utils/DateUtil.class
 org/n3r/idworker/WorkerIdStrategy.class
+com/study/utils/RedisOperator.class
 org/n3r/idworker/InvalidSystemClock.class
 org/n3r/idworker/Code.class
 org/n3r/idworker/utils/IPv4Utils.class

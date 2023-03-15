@@ -1,24 +1,25 @@
 package com.study.controller;
 
 import com.study.pojo.BO.UserBO;
-import com.study.pojo.Stu;
 import com.study.pojo.User;
+import com.study.pojo.vo.UsersVO;
 import com.study.service.UserService;
-import com.study.service.impl.StuServiceImpl;
-import com.study.utils.CommonJsonResult;
-import com.study.utils.CookieUtils;
-import com.study.utils.JsonUtils;
-import com.study.utils.Md5Utils;
+import com.study.utils.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * @author lizhe
@@ -29,9 +30,12 @@ import java.util.Objects;
 @Api(value = "注册登录", tags = {"用于注册登录的相关接口"})
 @RestController
 @RequestMapping("/passport")
-public class PassportController {
+public class PassportController extends BaseController{
     @Resource
     UserService userService;
+
+    @Resource
+    RedisOperator redisOperator;
 
     @ApiOperation(value = "判断用户名是否存在", notes = "用户名是否存在", httpMethod = "POST")
     @RequestMapping("/isExists")
@@ -86,12 +90,24 @@ public class PassportController {
         if(user == null){
             return CommonJsonResult.errorMsg("用户名或密码不正确");
         }
-        CookieUtils.setCookie(request, response,"user", JsonUtils.objectToJson(user), true);
+        // 实现用户的redis会话
+        UsersVO usersVO = convertUserVo(user);
+
+        CookieUtils.setCookie(request, response,"user", JsonUtils.objectToJson(usersVO), true);
         setNullProperty(user);
-        // TODO 生成用户token，存入redis会话
-        // TODO 同步购物车数据
 
         return CommonJsonResult.build(HttpStatus.OK.value(), HttpStatus.OK.getReasonPhrase(), user);
+    }
+
+    private UsersVO convertUserVo(User user){
+        // 实现用户的redis会话
+        String uniqueToken = UUID.randomUUID().toString().trim();
+        String key = REDIS_USER_TOKEN + ":" + user.getId();
+        redisOperator.set(key, uniqueToken);
+        UsersVO usersVO = new UsersVO();
+        BeanUtils.copyProperties(user, usersVO);
+        usersVO.setUserUniqueToken(uniqueToken);
+        return usersVO;
     }
 
     private void setNullProperty(User user){

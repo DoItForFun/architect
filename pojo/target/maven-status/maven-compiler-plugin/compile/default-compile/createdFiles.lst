@@ -22,5 +22,6 @@ com/study/pojo/Category.class
 com/study/pojo/BO/AddressBO.class
 com/study/pojo/Orders.class
 com/study/pojo/OrderStatus.class
+com/study/pojo/vo/UsersVO.class
 com/study/pojo/ItemsComments.class
 com/study/pojo/vo/CommentLevelCountsVO.class

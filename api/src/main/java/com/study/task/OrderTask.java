@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * Created by IDEA
  * @date 2023-01-30 14:41
  */
-@Component
+//@Component
 public class OrderTask {
 
     @Resource

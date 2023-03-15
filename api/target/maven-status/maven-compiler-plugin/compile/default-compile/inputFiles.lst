@@ -1,5 +1,7 @@
+/Users/lizhe/docker/study/architect/api/src/main/java/com/study/config/SessionConfig.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/HelloController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/BaseController.java
+/Users/lizhe/docker/study/architect/api/src/main/java/com/study/task/OrderTask.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/IndexController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/ItemsController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/config/CorsConfig.java
@@ -8,6 +10,8 @@
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/ShopCatController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/PassportController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/Application.java
+/Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/RedisController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/config/Swagger2.java
+/Users/lizhe/docker/study/architect/api/src/main/java/com/study/config/RedisConfig.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/OrderController.java
 /Users/lizhe/docker/study/architect/api/src/main/java/com/study/controller/StuFooController.java
